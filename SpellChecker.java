@@ -1,7 +1,7 @@
 public class SpellChecker {
 
     public static void main(String[] args) {
-        String word = args[0].toLowerCase(); 
+        String word = args[0];
         int threshold = Integer.parseInt(args[1]);
         String[] dictionary = readDictionary("dictionary.txt");
         String correction = spellChecker(word, threshold, dictionary);
@@ -9,10 +9,13 @@ public class SpellChecker {
     }
 
     public static String tail(String str) {
-        return str.substring(1);
+        return str.length() > 1 ? str.substring(1) : "";
     }
 
     public static int levenshtein(String word1, String word2) {
+        word1 = word1.toLowerCase();
+        word2 = word2.toLowerCase();
+
         if (word1.isEmpty()) return word2.length();
         if (word2.isEmpty()) return word1.length();
 
@@ -27,7 +30,7 @@ public class SpellChecker {
         String[] dictionary = new String[3000];
         In in = new In(fileName);
         for (int i = 0; i < 3000 && !in.isEmpty(); i++) {
-            dictionary[i] = in.readString().toLowerCase(); 
+            dictionary[i] = in.readString().toLowerCase(); // Lire chaque mot en minuscules
         }
         return dictionary;
     }
